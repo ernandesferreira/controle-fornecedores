@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  GESTOR
+  OPERADOR
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(OPERADOR)
+  active       Boolean  @default(true)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Supplier {
+  id           String         @id @default(cuid())
+  name         String
+  phone        String
+  notes        String?
+  dropshipping Boolean        @default(false)
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  catalogs     Catalog[]
+  prices       SupplierPrice?
+}
+
+model Catalog {
+  id         String   @id @default(cuid())
+  title      String?
+  url        String
+  supplierId String
+  createdAt  DateTime @default(now())
+
+  supplier   Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+}
+
+model SupplierPrice {
+  id            String   @id @default(cuid())
+  supplierId    String   @unique
+
+  currentModel  Float?
+  retroModel    Float?
+  kidsModel     Float?
+  nflModel      Float?
+  nbaModel      Float?
+  customModel   Float?
+  patchPrice    Float?
+  longSleeve    Float?
+  tracksuit     Float?
+  fanVersion    Float?
+  playerVersion Float?
+
+  updatedAt     DateTime @updatedAt
+
+  supplier      Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+}
