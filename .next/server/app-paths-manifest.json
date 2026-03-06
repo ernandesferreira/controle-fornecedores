@@ -1,7 +1,21 @@
 {
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/api/suppliers/[id]/route": "app/api/suppliers/[id]/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/suppliers/route": "app/api/suppliers/route.js",
+  "/api/users/[id]/route": "app/api/users/[id]/route.js",
   "/api/auth/setup/route": "app/api/auth/setup/route.js",
-  "/setup/page": "app/setup/page.js",
+  "/api/users/route": "app/api/users/route.js",
+  "/suppliers/[id]/edit/page": "app/suppliers/[id]/edit/page.js",
   "/page": "app/page.js",
-  "/suppliers/page": "app/suppliers/page.js"
+  "/suppliers/new/page": "app/suppliers/new/page.js",
+  "/setup/page": "app/setup/page.js",
+  "/suppliers/[id]/page": "app/suppliers/[id]/page.js",
+  "/login/page": "app/login/page.js",
+  "/suppliers/page": "app/suppliers/page.js",
+  "/users/page": "app/users/page.js",
+  "/users/new/page": "app/users/new/page.js",
+  "/suppliers/compare/page": "app/suppliers/compare/page.js",
+  "/users/[id]/edit/page": "app/users/[id]/edit/page.js"
 }

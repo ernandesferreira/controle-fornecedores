@@ -1,0 +1,132 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "dynamicRoutes": [
+    {
+      "page": "/api/suppliers/[id]",
+      "regex": "^/api/suppliers/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/suppliers/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/users/[id]",
+      "regex": "^/api/users/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/users/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/suppliers/[id]",
+      "regex": "^/suppliers/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/suppliers/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/suppliers/[id]/edit",
+      "regex": "^/suppliers/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/suppliers/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/users/[id]/edit",
+      "regex": "^/users/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/users/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/setup",
+      "regex": "^/setup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/setup(?:/)?$"
+    },
+    {
+      "page": "/suppliers",
+      "regex": "^/suppliers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/suppliers(?:/)?$"
+    },
+    {
+      "page": "/suppliers/compare",
+      "regex": "^/suppliers/compare(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/suppliers/compare(?:/)?$"
+    },
+    {
+      "page": "/suppliers/new",
+      "regex": "^/suppliers/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/suppliers/new(?:/)?$"
+    },
+    {
+      "page": "/users",
+      "regex": "^/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/users(?:/)?$"
+    },
+    {
+      "page": "/users/new",
+      "regex": "^/users/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/users/new(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  },
+  "rewrites": []
+}
