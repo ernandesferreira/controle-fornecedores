@@ -1,6 +1,0 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/users/page": "app/users/page.js",
-  "/users/new/page": "app/users/new/page.js",
-  "/suppliers/page": "app/suppliers/page.js"
-}
