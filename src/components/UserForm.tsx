@@ -1,33 +1,35 @@
-
 'use client'
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+type UserRole = 'GESTOR' | 'OPERADOR'
+
 type UserFormProps = {
   mode: 'create' | 'edit'
   initialData?: {
-    id: string
-    name: string
-    email: string
-    role: 'GESTOR' | 'OPERADOR'
-    active: boolean
+    id?: string
+    name?: string
+    email?: string
+    role?: UserRole
+    active?: boolean
   }
 }
 
 export default function UserForm({ mode, initialData }: UserFormProps) {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
-
   const [name, setName] = useState(initialData?.name || '')
   const [email, setEmail] = useState(initialData?.email || '')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState<'GESTOR' | 'OPERADOR'>(initialData?.role || 'OPERADOR')
-  const [active, setActive] = useState(initialData?.active ?? true)
+  const [role, setRole] = useState<UserRole>(initialData?.role || 'OPERADOR')
+  const [active, setIsActive] = useState(initialData?.active ?? true)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
     setLoading(true)
+    setError('')
 
     try {
       const endpoint = mode === 'create' ? '/api/users' : `/api/users/${initialData?.id}`
@@ -36,108 +38,69 @@ export default function UserForm({ mode, initialData }: UserFormProps) {
       const response = await fetch(endpoint, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          role,
-          active,
-        }),
+        body: JSON.stringify({ name, email, password, role, active }),
       })
 
       const data = await response.json()
-
       if (!response.ok) {
-        throw new Error(data.error || 'Erro ao salvar usuário')
+        setError(data.error || 'Não foi possível salvar o usuário.')
+        return
       }
 
       router.push('/users')
       router.refresh()
-    } catch (error) {
-      console.error(error)
-      alert('Erro ao salvar usuário')
+    } catch {
+      setError('Erro inesperado ao salvar o usuário.')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border bg-white p-6">
-      <div className="grid gap-4 md:grid-cols-2">
-
-        <div>
-          <label className="mb-1 block text-sm font-medium">Nome</label>
-          <input
-            className="w-full rounded-xl border px-3 py-2"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-sm">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div>
+            <label className="mb-1.5 block text-sm font-semibold text-gray-700">Nome</label>
+            <input value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-semibold text-gray-700">E-mail</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-semibold text-gray-700">Perfil</label>
+            <select value={role} onChange={(e) => setRole(e.target.value as UserRole)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm">
+              <option value="GESTOR">Gestor</option>
+              <option value="OPERADOR">Operador</option>
+            </select>
+            <p className="mt-1 text-xs text-gray-500">Operador não pode criar, editar ou excluir usuários. Gestor tem acesso total.</p>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-semibold text-gray-700">{mode === 'create' ? 'Senha' : 'Nova senha'} {mode === 'edit' ? '(opcional)' : ''}</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" minLength={mode === 'create' ? 6 : undefined} required={mode === 'create'} />
+            <span className="mt-1 block text-xs text-gray-500">{mode === 'create' ? 'A senha deve ter pelo menos 6 caracteres.' : 'Preencha apenas se quiser alterar a senha atual.'}</span>
+          </div>
         </div>
 
-        <div>
-          <label className="mb-1 block text-sm font-medium">Email</label>
-          <input
-            type="email"
-            className="w-full rounded-xl border px-3 py-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="mb-1 block text-sm font-medium">
-            Senha {mode === 'edit' ? '(preencha apenas se quiser alterar)' : ''}
+        <div className="mt-5 rounded-2xl bg-gray-50 p-4">
+          <label className="flex items-start gap-3">
+            <input type="checkbox" checked={active} onChange={(e) => setIsActive(e.target.checked)} className="mt-1 h-4 w-4 rounded border-gray-300" />
+            <span className="text-sm text-gray-700">
+              <strong>Status ativo</strong>
+              <span className="block text-xs text-gray-500">Usuários inativos não conseguem fazer login.</span>
+            </span>
           </label>
-          <input
-            type="password"
-            className="w-full rounded-xl border px-3 py-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required={mode === 'create'}
-          />
-        </div>
-
-        <div>
-          <label className="mb-1 block text-sm font-medium">Perfil</label>
-          <select
-            className="w-full rounded-xl border px-3 py-2"
-            value={role}
-            onChange={(e) => setRole(e.target.value as 'GESTOR' | 'OPERADOR')}
-          >
-            <option value="GESTOR">Gestor</option>
-            <option value="OPERADOR">Operador</option>
-          </select>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
-        <input
-          id="active"
-          type="checkbox"
-          checked={active}
-          onChange={(e) => setActive(e.target.checked)}
-        />
-        <label htmlFor="active" className="text-sm font-medium">
-          Usuário ativo
-        </label>
-      </div>
+      {error ? <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p> : null}
 
-      <div className="flex gap-3">
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded-xl bg-black px-5 py-3 text-white disabled:opacity-50"
-        >
+      <div className="flex flex-wrap gap-3">
+        <button type="submit" disabled={loading} className="rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">
           {loading ? 'Salvando...' : mode === 'create' ? 'Criar usuário' : 'Salvar alterações'}
         </button>
-
-        <button
-          type="button"
-          onClick={() => router.push('/users')}
-          className="rounded-xl border px-5 py-3"
-        >
+        <button type="button" onClick={() => router.push('/users')} className="rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-700">
           Cancelar
         </button>
       </div>

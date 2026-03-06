@@ -1,29 +1,31 @@
 # Controle de Fornecedores
 
-Sistema em Next.js para cadastro de fornecedores, comparação de preços por categoria e controle de acesso do gestor.
+Projeto pronto para Vercel + PostgreSQL.
 
-## Recursos
+## Variáveis
 
-- Login do gestor
-- Setup inicial para criar o primeiro usuário
-- CRUD de usuários
-- CRUD de fornecedores
-- Comparativo de preços com média dos 3 menores valores
-- Flag de dropshipping e filtros na listagem
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DATABASE?sslmode=require"
+AUTH_SECRET="troque-esta-chave"
+```
 
-## Como rodar
+## Rodar localmente
 
 ```bash
 npm install
-npx prisma migrate dev --name init_auth_users
+npx prisma db push
 npm run dev
 ```
 
-## Variáveis de ambiente
+## Primeiro acesso
 
-Use o arquivo `.env`:
+1. Acesse `/setup`
+2. Crie o primeiro gestor
+3. Depois use `/login`
 
-```env
-DATABASE_URL="file:./dev.db"
-AUTH_SECRET="troque-esta-chave-em-producao"
-```
+## Deploy na Vercel
+
+1. Suba no GitHub
+2. Importe no Vercel
+3. Configure `DATABASE_URL` e `AUTH_SECRET`
+4. Rode `npx prisma db push` uma vez contra o banco remoto

@@ -38,7 +38,7 @@ export default function UsersList({ users }: Props) {
                   </div>
                 </td>
                 <td className="px-5 py-4 text-gray-700">{user.email}</td>
-                <td className="px-5 py-4"><span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">{user.role}</span></td>
+                <td className="px-5 py-4"><span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${user.role === 'GESTOR' ? 'bg-violet-50 text-violet-700' : 'bg-sky-50 text-sky-700'}`}>{user.role === 'GESTOR' ? 'Gestor' : 'Operador'}</span></td>
                 <td className="px-5 py-4">
                   {user.active ? (
                     <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Ativo</span>

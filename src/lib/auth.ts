@@ -12,7 +12,7 @@ function getJwtSecret() {
 export type SessionPayload = {
   userId: string
   email: string
-  role: 'ADMIN'
+  role: 'GESTOR' | 'OPERADOR'
 }
 
 export async function createSessionCookie(payload: SessionPayload) {
@@ -77,6 +77,21 @@ export async function requireCurrentUser() {
   return user
 }
 
+export async function requireManagerUser() {
+  const user = await requireCurrentUser()
+  if (user.role !== 'GESTOR') redirect('/suppliers')
+  return user
+}
+
+export function isManagerRole(role: 'GESTOR' | 'OPERADOR') {
+  return role === 'GESTOR'
+}
+
 export async function userCount() {
-  return prisma.user.count()
+  try {
+    return await prisma.user.count()
+  } catch (error) {
+    console.error('Erro ao contar usuários:', error)
+    return 0
+  }
 }

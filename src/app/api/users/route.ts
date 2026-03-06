@@ -9,6 +9,9 @@ export async function GET() {
     if (!currentUser) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
     }
+    if (currentUser.role !== 'GESTOR') {
+      return NextResponse.json({ error: 'forbidden' }, { status: 403 })
+    }
 
     const users = await prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
@@ -35,6 +38,9 @@ export async function POST(req: Request) {
     if (!currentUser) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
     }
+    if (currentUser.role !== 'GESTOR') {
+      return NextResponse.json({ error: 'forbidden' }, { status: 403 })
+    }
 
     const body = await req.json()
 
@@ -42,6 +48,7 @@ export async function POST(req: Request) {
     const email = String(body.email || '').trim().toLowerCase()
     const password = String(body.password || '')
     const active = body.active !== false
+    const role = body.role === 'OPERADOR' ? 'OPERADOR' : 'GESTOR'
 
     if (!name || !email || password.length < 6) {
       return NextResponse.json({ error: 'Preencha nome, e-mail e senha com pelo menos 6 caracteres.' }, { status: 400 })
@@ -59,6 +66,7 @@ export async function POST(req: Request) {
         name,
         email,
         passwordHash,
+        role,
         active,
       },
       select: {
