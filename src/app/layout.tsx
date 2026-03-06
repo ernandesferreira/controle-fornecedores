@@ -36,12 +36,14 @@ export default async function RootLayout({
                   <>
                     <Link href="/suppliers" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Fornecedores</Link>
                     <Link href="/suppliers/compare" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Comparativo</Link>
-                    <Link href="/users" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Usuários</Link>
+                    {user.role === 'GESTOR' ? (
+                      <Link href="/users" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Usuários</Link>
+                    ) : null}
                     <Link href="/suppliers/new" className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800">Novo fornecedor</Link>
                     <div className="ml-2 flex items-center gap-3 border-l border-gray-200 pl-4">
                       <div className="text-right">
                         <p className="text-sm font-semibold text-gray-900">{user.name}</p>
-                        <p className="text-xs text-gray-500">{user.email}</p>
+                        <p className="text-xs text-gray-500">{user.email} • {user.role === 'GESTOR' ? 'Gestor' : 'Operador'}</p>
                       </div>
                       <LogoutButton />
                     </div>

@@ -13,6 +13,9 @@ export async function GET(_: Request, { params }: Params) {
     if (!currentUser) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
     }
+    if (currentUser.role !== 'GESTOR') {
+      return NextResponse.json({ error: 'forbidden' }, { status: 403 })
+    }
 
     const { id } = await params
 
@@ -45,6 +48,9 @@ export async function PUT(req: Request, { params }: Params) {
     if (!currentUser) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
     }
+    if (currentUser.role !== 'GESTOR') {
+      return NextResponse.json({ error: 'forbidden' }, { status: 403 })
+    }
 
     const { id } = await params
     const body = await req.json()
@@ -53,6 +59,7 @@ export async function PUT(req: Request, { params }: Params) {
     const email = String(body.email || '').trim().toLowerCase()
     const password = String(body.password || '')
     const active = body.active !== false
+    const role = body.role === 'OPERADOR' ? 'OPERADOR' : 'GESTOR'
 
     if (!name || !email) {
       return NextResponse.json({ error: 'Preencha nome e e-mail.' }, { status: 400 })
@@ -76,12 +83,31 @@ export async function PUT(req: Request, { params }: Params) {
       }
     }
 
+    if (currentUser.id === id && role !== 'GESTOR') {
+      return NextResponse.json({ error: 'Você não pode alterar seu próprio perfil para Operador.' }, { status: 400 })
+    }
+
+    const managers = await prisma.user.count({ where: { role: 'GESTOR', active: true } })
+    const targetUser = await prisma.user.findUnique({ where: { id }, select: { role: true, active: true } })
+
+    if (!targetUser) {
+      return NextResponse.json({ error: 'Usuário não encontrado.' }, { status: 404 })
+    }
+
+    const removingLastManagerRole = targetUser.role === 'GESTOR' && role !== 'GESTOR' && targetUser.active
+    const disablingLastManager = targetUser.role === 'GESTOR' && !active && targetUser.active
+
+    if (managers <= 1 && (removingLastManagerRole || disablingLastManager)) {
+      return NextResponse.json({ error: 'O sistema precisa manter pelo menos um Gestor ativo.' }, { status: 400 })
+    }
+
     const data: {
       name: string
       email: string
+      role: 'GESTOR' | 'OPERADOR'
       active: boolean
       passwordHash?: string
-    } = { name, email, active }
+    } = { name, email, role, active }
 
     if (password) {
       if (password.length < 6) {
@@ -116,6 +142,9 @@ export async function DELETE(_: Request, { params }: Params) {
     if (!currentUser) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
     }
+    if (currentUser.role !== 'GESTOR') {
+      return NextResponse.json({ error: 'forbidden' }, { status: 403 })
+    }
 
     const { id } = await params
 
@@ -126,6 +155,18 @@ export async function DELETE(_: Request, { params }: Params) {
 
     if (currentUser.id === id) {
       return NextResponse.json({ error: 'Você não pode excluir o seu próprio usuário.' }, { status: 400 })
+    }
+
+    const targetUser = await prisma.user.findUnique({ where: { id }, select: { role: true, active: true } })
+    if (!targetUser) {
+      return NextResponse.json({ error: 'Usuário não encontrado.' }, { status: 404 })
+    }
+
+    if (targetUser.role === 'GESTOR' && targetUser.active) {
+      const managers = await prisma.user.count({ where: { role: 'GESTOR', active: true } })
+      if (managers <= 1) {
+        return NextResponse.json({ error: 'O sistema precisa manter pelo menos um Gestor ativo.' }, { status: 400 })
+      }
     }
 
     await prisma.user.delete({ where: { id } })
