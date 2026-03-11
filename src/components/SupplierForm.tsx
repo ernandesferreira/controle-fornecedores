@@ -145,84 +145,84 @@ export default function SupplierForm({ initialData, mode }: SupplierFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="grid gap-4 rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-sm md:grid-cols-2">
+      <div className="grid gap-4 rounded-xl border border-slate-200/80 bg-white/95 p-5 shadow-sm sm:p-6 md:grid-cols-2">
         <div className="md:col-span-2">
-          <h2 className="text-xl font-bold text-gray-900">Dados do fornecedor</h2>
-          <p className="mt-1 text-sm text-gray-500">Cadastre as informações principais e defina se o fornecedor atende em dropshipping.</p>
+          <h2 className="text-xl font-bold text-slate-900">Dados do fornecedor</h2>
+          <p className="mt-1 text-sm text-slate-500">Cadastre as informações principais e defina se o fornecedor atende em dropshipping.</p>
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-semibold text-gray-700">Nome</label>
-          <input className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" value={name} onChange={(e) => setName(e.target.value)} required />
+          <label className="mb-1.5 block text-sm font-semibold text-slate-700">Nome</label>
+          <input className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-semibold text-gray-700">Telefone</label>
-          <input className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} required />
+          <label className="mb-1.5 block text-sm font-semibold text-slate-700">Telefone</label>
+          <input className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} required />
         </div>
 
-        <div className="md:col-span-2 rounded-2xl border border-gray-200 bg-gray-50/80 p-4">
+        <div className="md:col-span-2 rounded-xl border border-blue-100 bg-blue-50/60 p-4">
           <label className="flex cursor-pointer items-center gap-3">
             <input type="checkbox" checked={dropshipping} onChange={(e) => setDropshipping(e.target.checked)} className="h-4 w-4 rounded border-gray-300" />
             <span>
-              <span className="block text-sm font-semibold text-gray-800">Fornecedor faz dropshipping</span>
-              <span className="block text-xs text-gray-500">Ative esta opção para identificar fornecedores que enviam direto ao cliente.</span>
+              <span className="block text-sm font-semibold text-slate-800">Fornecedor faz dropshipping</span>
+              <span className="block text-xs text-slate-600">Ative esta opção para identificar fornecedores que enviam direto ao cliente.</span>
             </span>
           </label>
         </div>
 
         <div className="md:col-span-2">
-          <label className="mb-1.5 block text-sm font-semibold text-gray-700">Observações</label>
-          <textarea className="min-h-28 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" value={notes} onChange={(e) => setNotes(e.target.value)} />
+          <label className="mb-1.5 block text-sm font-semibold text-slate-700">Observações</label>
+          <textarea className="min-h-28 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" value={notes} onChange={(e) => setNotes(e.target.value)} />
         </div>
       </div>
 
-      <div className="space-y-4 rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-sm">
+      <div className="space-y-4 rounded-xl border border-slate-200/80 bg-white/95 p-5 shadow-sm sm:p-6">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Links de catálogos</h2>
-            <p className="mt-1 text-sm text-gray-500">Você pode adicionar um ou vários links por fornecedor.</p>
+            <h2 className="text-xl font-bold text-slate-900">Links de catálogos</h2>
+            <p className="mt-1 text-sm text-slate-500">Você pode adicionar um ou vários links por fornecedor.</p>
           </div>
-          <button type="button" onClick={addCatalog} className="rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700">+ Adicionar link</button>
+          <button type="button" onClick={addCatalog} className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-700">+ Adicionar link</button>
         </div>
 
         {catalogs.map((catalog, index) => (
-          <div key={index} className="grid gap-3 rounded-2xl border border-gray-200 bg-gray-50/70 p-4 md:grid-cols-[1fr_2fr_auto]">
+          <div key={index} className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4 md:grid-cols-[1fr_2fr_auto]">
             <div>
-              <label className="mb-1.5 block text-sm font-semibold text-gray-700">Título</label>
-              <input className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" value={catalog.title} onChange={(e) => updateCatalog(index, 'title', e.target.value)} placeholder="Ex: Catálogo principal" />
+              <label className="mb-1.5 block text-sm font-semibold text-slate-700">Título</label>
+              <input className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" value={catalog.title} onChange={(e) => updateCatalog(index, 'title', e.target.value)} placeholder="Ex: Catálogo principal" />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-semibold text-gray-700">URL</label>
-              <input className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" value={catalog.url} onChange={(e) => updateCatalog(index, 'url', e.target.value)} placeholder="https://..." />
+              <label className="mb-1.5 block text-sm font-semibold text-slate-700">URL</label>
+              <input className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" value={catalog.url} onChange={(e) => updateCatalog(index, 'url', e.target.value)} placeholder="https://..." />
             </div>
             <div className="flex items-end">
-              <button type="button" onClick={() => removeCatalog(index)} className="rounded-2xl border border-red-200 bg-white px-4 py-3 text-sm font-semibold text-red-600">Remover</button>
+              <button type="button" onClick={() => removeCatalog(index)} className="w-full rounded-xl border border-red-200 bg-white px-4 py-3 text-sm font-semibold text-red-600 md:w-auto">Remover</button>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-sm">
+      <div className="rounded-xl border border-slate-200/80 bg-white/95 p-5 shadow-sm sm:p-6">
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Tabela de preços</h2>
-          <p className="mt-1 text-sm text-gray-500">Informe os valores por categoria para comparação futura.</p>
+          <h2 className="text-xl font-bold text-slate-900">Tabela de preços</h2>
+          <p className="mt-1 text-sm text-slate-500">Informe os valores por categoria para comparação futura.</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {priceInputs.map(({ field, label }) => (
             <div key={field}>
-              <label className="mb-1.5 block text-sm font-semibold text-gray-700">{label}</label>
-              <input type="number" step="0.01" min="0" className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" value={prices[field]} onChange={(e) => updatePrice(field, e.target.value)} placeholder="0.00" />
+              <label className="mb-1.5 block text-sm font-semibold text-slate-700">{label}</label>
+              <input type="number" step="0.01" min="0" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" value={prices[field]} onChange={(e) => updatePrice(field, e.target.value)} placeholder="0.00" />
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        <button type="submit" disabled={loading} className="rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <button type="submit" disabled={loading} className="cta-primary w-full px-5 py-3 text-sm disabled:opacity-50 sm:w-auto">
           {loading ? 'Salvando...' : mode === 'create' ? 'Cadastrar fornecedor' : 'Salvar alterações'}
         </button>
-        <button type="button" onClick={() => router.push('/suppliers')} className="rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-700">Cancelar</button>
+        <button type="button" onClick={() => router.push('/suppliers')} className="w-full rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 sm:w-auto">Cancelar</button>
       </div>
     </form>
   )

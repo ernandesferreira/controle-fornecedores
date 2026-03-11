@@ -34,9 +34,9 @@ export default function SupplierPriceView({ prices }: SupplierPriceViewProps) {
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
       {rows.map(([label, value]) => (
-        <div key={String(label)} className="rounded-2xl border border-gray-200 bg-gray-50/90 p-4">
-          <p className="text-sm font-medium text-gray-500">{label}</p>
-          <p className="mt-2 text-xl font-bold text-gray-900">{formatBRL(value as number | null | undefined)}</p>
+        <div key={String(label)} className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4">
+          <p className="text-sm font-medium text-slate-500">{label}</p>
+          <p className="mt-2 text-xl font-bold text-slate-900">{formatBRL(value as number | null | undefined)}</p>
         </div>
       ))}
     </div>

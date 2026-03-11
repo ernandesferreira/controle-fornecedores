@@ -1,64 +1,149 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
+import { Manrope, Sora } from 'next/font/google'
 import { getCurrentUser } from '@/lib/auth'
 import LogoutButton from '@/components/LogoutButton'
+import MobileNav from '@/components/MobileNav'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'Controle de Fornecedores',
   description: 'Cadastro de fornecedores com tabela de preços, login e gestão de usuários',
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon-32x32.png',
+    apple: '/apple-touch-icon.png',
+  },
 }
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
+
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-display',
+})
 
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const user = await getCurrentUser()
+  const navBase = 'nav-link'
 
   return (
-    <html lang="pt-BR">
-      <body className="min-h-screen bg-[radial-gradient(circle_at_top,_#f3f4f6,_#eef2ff_35%,_#f8fafc_70%)] text-gray-900 antialiased">
-        <div className="min-h-screen">
-          <header className="sticky top-0 z-30 border-b border-white/60 bg-white/85 backdrop-blur-xl">
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-              <Link href="/" className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gray-900 text-sm font-bold text-white shadow-sm">
-                  CF
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">Controle de Fornecedores</p>
-                  <p className="text-xs text-gray-500">Gestão de catálogos, preços e acessos</p>
-                </div>
-              </Link>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${manrope.variable} ${sora.variable} app-shell text-[var(--foreground)] antialiased`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(() => {
+  try {
+    const key = 'theme-mode';
+    const saved = localStorage.getItem(key);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = saved || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  } catch (_) {}
+})();`,
+          }}
+        />
+        <div className="app-shell">
+          <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur-xl">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between py-3">
+                <Link href="/" className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border border-white/70 bg-white shadow-sm">
+                    <Image
+                      src="/brand/logo-familia-manto.png"
+                      alt="Logo Família Manto"
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 object-cover"
+                      priority
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">Controle de Fornecedores</p>
+                    <p className="text-xs text-slate-500">Gestão de catálogos, preços e acessos</p>
+                  </div>
+                </Link>
 
-              <nav className="hidden items-center gap-2 md:flex">
-                <Link href="/" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Início</Link>
-                {user ? (
-                  <>
-                    <Link href="/suppliers" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Fornecedores</Link>
-                    <Link href="/suppliers/compare" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Comparativo</Link>
-                    {user.role === 'GESTOR' ? (
-                      <Link href="/users" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Usuários</Link>
-                    ) : null}
-                    <Link href="/suppliers/new" className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800">Novo fornecedor</Link>
-                    <div className="ml-2 flex items-center gap-3 border-l border-gray-200 pl-4">
-                      <div className="text-right">
-                        <p className="text-sm font-semibold text-gray-900">{user.name}</p>
-                        <p className="text-xs text-gray-500">{user.email} • {user.role === 'GESTOR' ? 'Gestor' : 'Operador'}</p>
+                <nav className="hidden items-center gap-2 md:flex">
+                  <ThemeToggle />
+                  <Link href="/" className={navBase}>Início</Link>
+                  {user ? (
+                    <>
+                      <Link href="/suppliers" className={navBase}>Fornecedores</Link>
+                      <Link href="/suppliers/compare" className={navBase}>Comparativo</Link>
+                      {user.role === 'GESTOR' ? (
+                        <Link href="/users" className={navBase}>Usuários</Link>
+                      ) : null}
+                      <Link href="/suppliers/new" className="cta-primary px-4 py-2 text-sm">Novo fornecedor</Link>
+                      <div className="ml-2 flex items-center gap-3 border-l border-slate-200 pl-4">
+                        <div className="text-right">
+                          <p className="text-sm font-semibold text-slate-900">{user.name}</p>
+                          <p className="text-xs text-slate-500">{user.email} • {user.role === 'GESTOR' ? 'Gestor' : 'Operador'}</p>
+                        </div>
+                        <LogoutButton />
                       </div>
-                      <LogoutButton />
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/login" className={navBase}>Entrar</Link>
+                      <Link href="/setup" className="cta-primary px-4 py-2 text-sm">Primeiro acesso</Link>
+                    </>
+                  )}
+                </nav>
+
+                <div className="md:hidden">
+                  <details className="relative">
+                    <summary className="list-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700">
+                      Menu
+                    </summary>
+                    <div className="glass-panel absolute right-0 mt-3 w-[min(88vw,22rem)] rounded-2xl p-3 shadow-xl">
+                      <div className="flex flex-col gap-1">
+                        <div className="mb-2">
+                          <ThemeToggle />
+                        </div>
+                        <Link href="/" className={navBase}>Início</Link>
+                        {user ? (
+                          <>
+                            <Link href="/suppliers" className={navBase}>Fornecedores</Link>
+                            <Link href="/suppliers/compare" className={navBase}>Comparativo</Link>
+                            {user.role === 'GESTOR' ? <Link href="/users" className={navBase}>Usuários</Link> : null}
+                            <Link href="/suppliers/new" className="cta-primary mt-2 px-4 py-2 text-center text-sm">Novo fornecedor</Link>
+                            <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3">
+                              <p className="text-sm font-semibold text-slate-900">{user.name}</p>
+                              <p className="text-xs text-slate-500">{user.email}</p>
+                              <p className="mt-1 text-xs font-medium text-blue-700">{user.role === 'GESTOR' ? 'Gestor' : 'Operador'}</p>
+                            </div>
+                            <div className="mt-2">
+                              <LogoutButton />
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <Link href="/login" className={navBase}>Entrar</Link>
+                            <Link href="/setup" className="cta-primary mt-2 px-4 py-2 text-center text-sm">Primeiro acesso</Link>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <Link href="/login" className="rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">Entrar</Link>
-                    <Link href="/setup" className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800">Primeiro acesso</Link>
-                  </>
-                )}
-              </nav>
+                  </details>
+                </div>
+              </div>
             </div>
           </header>
 
-          {children}
+          <div className="pb-24 md:pb-0">{children}</div>
+          <MobileNav loggedIn={!!user} isManager={user?.role === 'GESTOR'} />
         </div>
       </body>
     </html>

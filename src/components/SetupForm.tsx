@@ -42,20 +42,20 @@ export default function SetupForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
         <label className="mb-1.5 block text-sm font-semibold text-gray-700">Nome do gestor</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
+        <input value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
       </div>
       <div>
         <label className="mb-1.5 block text-sm font-semibold text-gray-700">E-mail</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
       </div>
       <div>
         <label className="mb-1.5 block text-sm font-semibold text-gray-700">Senha</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" minLength={6} required />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" minLength={6} required />
       </div>
 
-      {error ? <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p> : null}
+      {error ? <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p> : null}
 
-      <button type="submit" disabled={loading} className="w-full rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">
+      <button type="submit" disabled={loading} className="cta-primary w-full px-5 py-3 text-sm disabled:opacity-50">
         {loading ? 'Criando acesso...' : 'Criar primeiro acesso'}
       </button>
     </form>
