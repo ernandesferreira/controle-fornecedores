@@ -65,7 +65,10 @@ export async function GET(req: NextRequest) {
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'GOOGLE_DRIVE_API_KEY não configurada no servidor.' },
+      {
+        error:
+          'GOOGLE_DRIVE_API_KEY não configurada no servidor. Defina a variável no ambiente da plataforma (ex.: Vercel) e faça novo deploy.',
+      },
       { status: 500 },
     )
   }

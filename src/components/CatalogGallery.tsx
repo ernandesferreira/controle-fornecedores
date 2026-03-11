@@ -93,7 +93,9 @@ export default function CatalogGallery({ folderId }: { folderId: string }) {
         <p className="mt-1 text-xs text-red-500">{error}</p>
         {error.includes('GOOGLE_DRIVE_API_KEY') && (
           <p className="mt-3 text-xs text-slate-500">
-            Configure a variável <code className="rounded bg-slate-100 px-1 py-0.5">GOOGLE_DRIVE_API_KEY</code> no arquivo <code className="rounded bg-slate-100 px-1 py-0.5">.env.local</code>.
+            Configure a variável <code className="rounded bg-slate-100 px-1 py-0.5">GOOGLE_DRIVE_API_KEY</code>
+            {' '}no <code className="rounded bg-slate-100 px-1 py-0.5">.env.local</code> (local)
+            {' '}ou nas variáveis de ambiente do provedor (produção, ex.: Vercel).
           </p>
         )}
       </div>
