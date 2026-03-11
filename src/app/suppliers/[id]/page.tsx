@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import SupplierPriceView from '@/components/SupplierPriceView'
 import DeleteSupplierButton from '@/components/DeleteSupplierButton'
+import CatalogViewer from '@/components/CatalogViewer'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -73,45 +74,31 @@ export default async function SupplierDetailsPage({ params }: PageProps) {
         </section>
 
         <section className="reveal-up stagger-2 rounded-xl border border-slate-200/80 bg-white/95 p-6 shadow-sm">
-          <div className="flex items-center justify-between gap-3">
-            <h2 className="text-xl font-bold text-slate-900">Catálogos</h2>
-            <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-              {supplier.catalogs.length} link(s)
-            </span>
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">Tabela de preços</h2>
+              <p className="mt-1 text-sm text-slate-500">Valores cadastrados por categoria.</p>
+            </div>
           </div>
-
-          <div className="mt-5 space-y-3">
-            {supplier.catalogs.length ? (
-              supplier.catalogs.map((catalog) => (
-                <div key={catalog.id} className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
-                  <p className="font-semibold text-slate-900">{catalog.title || 'Catálogo sem título'}</p>
-                  <a
-                    className="mt-2 inline-block break-all text-sm font-medium text-blue-700 underline"
-                    href={catalog.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {catalog.url}
-                  </a>
-                </div>
-              ))
-            ) : (
-              <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-sm text-slate-500">
-                Nenhum catálogo cadastrado para este fornecedor.
-              </div>
-            )}
-          </div>
+          <SupplierPriceView prices={supplier.prices} />
         </section>
       </div>
 
       <section className="reveal-up stagger-3 mt-6 rounded-xl border border-slate-200/80 bg-white/95 p-6 shadow-sm">
         <div className="mb-5 flex items-center justify-between gap-3">
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Tabela de preços</h2>
-            <p className="mt-1 text-sm text-slate-500">Valores cadastrados por categoria.</p>
+            <h2 className="text-xl font-bold text-slate-900">Catálogos</h2>
+            <p className="mt-1 text-sm text-slate-500">
+              {supplier.catalogs.length
+                ? `${supplier.catalogs.length} catálogo(s) cadastrado(s)`
+                : 'Nenhum catálogo cadastrado'}
+            </p>
           </div>
+          <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+            {supplier.catalogs.length} link(s)
+          </span>
         </div>
-        <SupplierPriceView prices={supplier.prices} />
+        <CatalogViewer catalogs={supplier.catalogs} />
       </section>
     </main>
   )
