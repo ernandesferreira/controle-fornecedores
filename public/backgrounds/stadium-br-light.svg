@@ -1,0 +1,38 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="960" y1="0" x2="960" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ECFDF3" />
+      <stop offset="1" stop-color="#DBEAFE" />
+    </linearGradient>
+    <linearGradient id="grass" x1="960" y1="760" x2="960" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16A34A" />
+      <stop offset="1" stop-color="#15803D" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <rect x="0" y="760" width="1920" height="320" fill="url(#grass)"/>
+
+  <ellipse cx="960" cy="830" rx="620" ry="130" fill="#15803D" opacity="0.65"/>
+  <ellipse cx="960" cy="850" rx="500" ry="95" fill="#FACC15" opacity="0.16"/>
+
+  <path d="M120 760C240 620 440 560 960 560C1480 560 1680 620 1800 760" stroke="#0F766E" stroke-width="24" opacity="0.25"/>
+  <path d="M180 760C290 650 470 600 960 600C1450 600 1630 650 1740 760" stroke="#0369A1" stroke-width="18" opacity="0.22"/>
+  <path d="M250 760C360 675 520 640 960 640C1400 640 1560 675 1670 760" stroke="#2563EB" stroke-width="14" opacity="0.2"/>
+
+  <rect x="355" y="725" width="1210" height="16" rx="8" fill="#0EA5E9" opacity="0.22"/>
+  <rect x="410" y="748" width="1100" height="12" rx="6" fill="#2563EB" opacity="0.18"/>
+
+  <path d="M620 756H1300" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="8 8"/>
+  <path d="M960 770V905" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="2"/>
+
+  <circle cx="960" cy="838" r="34" stroke="#FFFFFF" stroke-opacity="0.34" stroke-width="2"/>
+
+  <rect x="0" y="0" width="1920" height="1080" fill="url(#vignette)" opacity="0.06"/>
+  <defs>
+    <radialGradient id="vignette" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 520) rotate(90) scale(580 1150)">
+      <stop offset="0.52" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+</svg>

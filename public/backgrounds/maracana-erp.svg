@@ -1,0 +1,31 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E3A78"/>
+      <stop offset="1" stop-color="#0A8A44"/>
+    </linearGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2CA154"/>
+      <stop offset="1" stop-color="#18753B"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(780 260) rotate(90) scale(220 420)">
+      <stop stop-color="#FFD93D" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#FFD93D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect y="530" width="1600" height="370" fill="url(#grass)"/>
+  <ellipse cx="800" cy="520" rx="620" ry="190" fill="#E6F2EA" fill-opacity="0.16"/>
+  <ellipse cx="800" cy="520" rx="560" ry="165" stroke="#EAFBF0" stroke-opacity="0.28" stroke-width="16"/>
+  <ellipse cx="800" cy="525" rx="445" ry="132" fill="#FFFFFF" fill-opacity="0.06"/>
+  <ellipse cx="800" cy="560" rx="240" ry="70" fill="#1B8F47" fill-opacity="0.55"/>
+  <rect x="790" y="495" width="20" height="130" rx="10" fill="#FFFFFF" fill-opacity="0.4"/>
+  <rect x="675" y="550" width="250" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.26"/>
+  <path d="M80 458C200 410 330 384 480 378C640 372 850 400 1045 405C1220 410 1360 388 1520 328L1520 510L80 510V458Z" fill="#0B1D3E" fill-opacity="0.3"/>
+  <path d="M130 360C250 305 430 278 635 280C865 283 1050 335 1220 338C1340 340 1440 324 1520 285L1520 432L130 432V360Z" fill="#102951" fill-opacity="0.35"/>
+  <circle cx="390" cy="210" r="4" fill="#DFF7E7" fill-opacity="0.45"/>
+  <circle cx="430" cy="190" r="3" fill="#DFF7E7" fill-opacity="0.35"/>
+  <circle cx="1180" cy="250" r="4" fill="#DFF7E7" fill-opacity="0.45"/>
+  <circle cx="1220" cy="230" r="3" fill="#DFF7E7" fill-opacity="0.35"/>
+  <rect width="1600" height="900" fill="url(#light)"/>
+</svg>

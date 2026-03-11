@@ -16,8 +16,44 @@ type Props = {
 
 export default function UsersList({ users }: Props) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/70 bg-white/90 shadow-sm">
-      <div className="overflow-x-auto">
+    <div className="space-y-3">
+      <div className="space-y-3 md:hidden">
+        {users.map((user) => (
+          <article key={user.id} className="rounded-xl border border-slate-200/80 bg-white/95 p-4 shadow-sm">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-base font-bold text-slate-900">{user.name}</p>
+                <p className="text-xs text-slate-500">Criado em {new Intl.DateTimeFormat('pt-BR').format(new Date(user.createdAt))}</p>
+              </div>
+              <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${user.role === 'GESTOR' ? 'bg-violet-50 text-violet-700' : 'bg-sky-50 text-sky-700'}`}>
+                {user.role === 'GESTOR' ? 'Gestor' : 'Operador'}
+              </span>
+            </div>
+
+            <p className="mt-2 break-all text-sm text-slate-700">{user.email}</p>
+
+            <div className="mt-3">
+              {user.active ? (
+                <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Ativo</span>
+              ) : (
+                <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">Inativo</span>
+              )}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link href={`/users/${user.id}/edit`} className="rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white transition hover:bg-slate-800">Editar</Link>
+              <DeleteUserButton userId={user.id} userName={user.name} />
+            </div>
+          </article>
+        ))}
+
+        {!users.length && (
+          <div className="rounded-xl border border-slate-200/80 bg-white/95 px-6 py-12 text-center text-slate-500 shadow-sm">Nenhum usuário cadastrado.</div>
+        )}
+      </div>
+
+      <div className="hidden overflow-hidden rounded-xl border border-slate-200/80 bg-white/95 shadow-sm md:block">
+        <div className="overflow-x-auto">
         <table className="min-w-full border-collapse text-sm">
           <thead className="bg-gray-50/90 text-left text-gray-600">
             <tr>
@@ -62,6 +98,7 @@ export default function UsersList({ users }: Props) {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   )

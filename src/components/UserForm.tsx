@@ -58,49 +58,49 @@ export default function UserForm({ mode, initialData }: UserFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-sm">
+      <div className="rounded-xl border border-slate-200/80 bg-white/95 p-5 shadow-sm sm:p-6">
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-gray-700">Nome</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">Nome</label>
+            <input value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-gray-700">E-mail</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">E-mail</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" required />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-gray-700">Perfil</label>
-            <select value={role} onChange={(e) => setRole(e.target.value as UserRole)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm">
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">Perfil</label>
+            <select value={role} onChange={(e) => setRole(e.target.value as UserRole)} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm">
               <option value="GESTOR">Gestor</option>
               <option value="OPERADOR">Operador</option>
             </select>
-            <p className="mt-1 text-xs text-gray-500">Operador não pode criar, editar ou excluir usuários. Gestor tem acesso total.</p>
+            <p className="mt-1 text-xs text-slate-500">Operador não pode criar, editar ou excluir usuários. Gestor tem acesso total.</p>
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-gray-700">{mode === 'create' ? 'Senha' : 'Nova senha'} {mode === 'edit' ? '(opcional)' : ''}</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm" minLength={mode === 'create' ? 6 : undefined} required={mode === 'create'} />
-            <span className="mt-1 block text-xs text-gray-500">{mode === 'create' ? 'A senha deve ter pelo menos 6 caracteres.' : 'Preencha apenas se quiser alterar a senha atual.'}</span>
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">{mode === 'create' ? 'Senha' : 'Nova senha'} {mode === 'edit' ? '(opcional)' : ''}</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm" minLength={mode === 'create' ? 6 : undefined} required={mode === 'create'} />
+            <span className="mt-1 block text-xs text-slate-500">{mode === 'create' ? 'A senha deve ter pelo menos 6 caracteres.' : 'Preencha apenas se quiser alterar a senha atual.'}</span>
           </div>
         </div>
 
-        <div className="mt-5 rounded-2xl bg-gray-50 p-4">
+        <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/60 p-4">
           <label className="flex items-start gap-3">
             <input type="checkbox" checked={active} onChange={(e) => setIsActive(e.target.checked)} className="mt-1 h-4 w-4 rounded border-gray-300" />
-            <span className="text-sm text-gray-700">
+            <span className="text-sm text-slate-700">
               <strong>Status ativo</strong>
-              <span className="block text-xs text-gray-500">Usuários inativos não conseguem fazer login.</span>
+              <span className="block text-xs text-slate-500">Usuários inativos não conseguem fazer login.</span>
             </span>
           </label>
         </div>
       </div>
 
-      {error ? <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p> : null}
+      {error ? <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p> : null}
 
-      <div className="flex flex-wrap gap-3">
-        <button type="submit" disabled={loading} className="rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <button type="submit" disabled={loading} className="cta-primary w-full px-5 py-3 text-sm disabled:opacity-50 sm:w-auto">
           {loading ? 'Salvando...' : mode === 'create' ? 'Criar usuário' : 'Salvar alterações'}
         </button>
-        <button type="button" onClick={() => router.push('/users')} className="rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-700">
+        <button type="button" onClick={() => router.push('/users')} className="w-full rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 sm:w-auto">
           Cancelar
         </button>
       </div>

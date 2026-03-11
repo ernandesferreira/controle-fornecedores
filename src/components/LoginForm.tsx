@@ -47,7 +47,7 @@ export default function LoginForm() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm"
           placeholder="gestor@empresa.com"
           required
         />
@@ -59,18 +59,18 @@ export default function LoginForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm"
+          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm"
           placeholder="••••••••"
           required
         />
       </div>
 
-      {error ? <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p> : null}
+      {error ? <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p> : null}
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
+        className="cta-primary w-full px-5 py-3 text-sm disabled:opacity-50"
       >
         {loading ? 'Entrando...' : 'Entrar'}
       </button>

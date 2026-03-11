@@ -1,15 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f7fb;
-  --foreground: #111827;
+  --background: #f4fff4;
+  --foreground: #0b2a1a;
   --card: #ffffff;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --primary: #111827;
+  --muted: #365042;
+  --border: #bddac8;
+  --primary: #009c3b;
   --primary-foreground: #ffffff;
-  --accent: #2563eb;
-  --success: #15803d;
+  --accent: #ffdf00;
+  --success: #009c3b;
+}
+
+html[data-theme='dark'],
+html.dark {
+  --background: #04140e;
+  --foreground: #d8f8e6;
+  --card: #08241a;
+  --muted: #87bfa0;
+  --border: #15442f;
+  --primary: #00b749;
+  --accent: #ffd43b;
+  --success: #00b749;
 }
 
 * {
@@ -25,10 +37,419 @@ body {
   padding: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 28%),
-    radial-gradient(circle at top right, rgba(16, 185, 129, 0.08), transparent 20%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.9)),
+    url('/backgrounds/login-financeiro-serie-a.webp') center 22% / cover no-repeat fixed,
+    radial-gradient(circle at 8% 0%, rgba(0, 156, 59, 0.22), transparent 22%),
+    radial-gradient(circle at 92% 5%, rgba(0, 39, 118, 0.18), transparent 30%),
+    radial-gradient(circle at 50% 95%, rgba(255, 223, 0, 0.2), transparent 26%),
     var(--background);
   color: var(--foreground);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+html[data-theme='dark'] body,
+html.dark body {
+  background:
+    linear-gradient(180deg, rgba(2, 8, 6, 0.88), rgba(2, 8, 6, 0.95)),
+    url('/backgrounds/login-financeiro-serie-a.webp') center 22% / cover no-repeat fixed,
+    radial-gradient(circle at 10% 0%, rgba(0, 183, 73, 0.12), transparent 24%),
+    radial-gradient(circle at 90% 5%, rgba(255, 212, 59, 0.14), transparent 30%),
+    radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.08), transparent 28%),
+    var(--background);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.glass-panel {
+  border: 1px solid color-mix(in srgb, #ffffff 60%, #95c6a7 40%);
+  background: color-mix(in srgb, #ffffff 82%, #e4f7ea 18%);
+  backdrop-filter: blur(10px);
+}
+
+html[data-theme='dark'] .glass-panel,
+html.dark .glass-panel {
+  border: 1px solid #334155;
+  background: color-mix(in srgb, #0f172a 92%, #1e293b 8%);
+}
+
+.nav-link {
+  border-radius: 0.85rem;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1d4d33;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background: color-mix(in srgb, #009c3b 14%, #ffffff 86%);
+  color: #0b2a1a;
+}
+
+.cta-primary {
+  border-radius: 0.9rem;
+  background: linear-gradient(135deg, #009c3b, #127a43 45%, #0a5e88);
+  color: #ffffff;
+  font-weight: 700;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.cta-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(0, 92, 40, 0.28);
+}
+
+.reveal-up {
+  animation: reveal-up 0.7s cubic-bezier(0.2, 0.85, 0.24, 1) both;
+}
+
+.stagger-1 {
+  animation-delay: 0.08s;
+}
+
+.stagger-2 {
+  animation-delay: 0.16s;
+}
+
+.stagger-3 {
+  animation-delay: 0.24s;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .stagger-1,
+  .stagger-2,
+  .stagger-3 {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.92)),
+      url('/backgrounds/login-financeiro-serie-a.webp') center 28% / cover no-repeat,
+      radial-gradient(circle at 50% -20%, rgba(0, 156, 59, 0.2), transparent 42%),
+      radial-gradient(circle at 120% 0%, rgba(0, 39, 118, 0.16), transparent 36%),
+      var(--background);
+  }
+}
+
+@media (max-width: 768px) {
+  html[data-theme='dark'] body,
+  html.dark body {
+    background:
+      linear-gradient(180deg, rgba(2, 8, 6, 0.9), rgba(2, 8, 6, 0.97)),
+      url('/backgrounds/login-financeiro-serie-a.webp') center 28% / cover no-repeat,
+      radial-gradient(circle at 50% -20%, rgba(0, 183, 73, 0.18), transparent 44%),
+      radial-gradient(circle at 120% 0%, rgba(255, 212, 59, 0.12), transparent 34%),
+      var(--background);
+  }
+}
+
+html[data-theme='dark'] .bg-white,
+html[data-theme='dark'] .bg-white\/95,
+html[data-theme='dark'] .bg-white\/90,
+html[data-theme='dark'] .bg-white\/85,
+html[data-theme='dark'] .bg-white\/80,
+html.dark .bg-white,
+html.dark .bg-white\/95,
+html.dark .bg-white\/90,
+html.dark .bg-white\/85,
+html.dark .bg-white\/80 {
+  background-color: #0f172a !important;
+}
+
+html[data-theme='dark'] .bg-gray-50,
+html[data-theme='dark'] .bg-gray-50\/90,
+html[data-theme='dark'] .bg-gray-50\/80,
+html[data-theme='dark'] .bg-gray-50\/70,
+html[data-theme='dark'] .bg-gray-100,
+html[data-theme='dark'] .bg-blue-50,
+html[data-theme='dark'] .bg-blue-50\/60,
+html.dark .bg-gray-50,
+html.dark .bg-gray-50\/90,
+html.dark .bg-gray-50\/80,
+html.dark .bg-gray-50\/70,
+html.dark .bg-gray-100,
+html.dark .bg-blue-50,
+html.dark .bg-blue-50\/60 {
+  background-color: #111827 !important;
+}
+
+html[data-theme='dark'] .hover\:bg-gray-50\/70:hover,
+html[data-theme='dark'] .hover\:bg-gray-50\/60:hover,
+html[data-theme='dark'] .hover\:bg-slate-50:hover,
+html.dark .hover\:bg-gray-50\/70:hover,
+html.dark .hover\:bg-gray-50\/60:hover,
+html.dark .hover\:bg-slate-50:hover {
+  background-color: rgba(51, 65, 85, 0.4) !important;
+}
+
+html[data-theme='dark'] .text-gray-900,
+html[data-theme='dark'] .text-slate-900,
+html[data-theme='dark'] .text-gray-800,
+html[data-theme='dark'] .text-gray-700,
+html[data-theme='dark'] .text-slate-700,
+html[data-theme='dark'] .text-slate-600,
+html.dark .text-gray-900,
+html.dark .text-slate-900,
+html.dark .text-gray-800,
+html.dark .text-gray-700,
+html.dark .text-slate-700,
+html.dark .text-slate-600 {
+  color: #e5edf8 !important;
+}
+
+html[data-theme='dark'] .text-gray-600,
+html[data-theme='dark'] .text-gray-500,
+html[data-theme='dark'] .text-slate-500,
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-slate-500 {
+  color: #b1c0d6 !important;
+}
+
+html[data-theme='dark'] .text-blue-900,
+html[data-theme='dark'] .text-blue-800,
+html[data-theme='dark'] .text-blue-700,
+html[data-theme='dark'] .text-emerald-700,
+html[data-theme='dark'] .text-sky-700,
+html[data-theme='dark'] .text-violet-700,
+html[data-theme='dark'] .text-amber-700,
+html.dark .text-blue-900,
+html.dark .text-blue-800,
+html.dark .text-blue-700,
+html.dark .text-emerald-700,
+html.dark .text-sky-700,
+html.dark .text-violet-700,
+html.dark .text-amber-700 {
+  color: #8ec5ff !important;
+}
+
+html[data-theme='dark'] .text-emerald-700,
+html.dark .text-emerald-700 {
+  color: #6ee7b7 !important;
+}
+
+html[data-theme='dark'] .text-sky-700,
+html.dark .text-sky-700 {
+  color: #7dd3fc !important;
+}
+
+html[data-theme='dark'] .text-violet-700,
+html.dark .text-violet-700 {
+  color: #c4b5fd !important;
+}
+
+html[data-theme='dark'] .text-amber-700,
+html.dark .text-amber-700 {
+  color: #fcd34d !important;
+}
+
+html[data-theme='dark'] .bg-emerald-50,
+html.dark .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+html[data-theme='dark'] .bg-blue-50,
+html.dark .bg-blue-50 {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+html[data-theme='dark'] .bg-blue-50\/60,
+html[data-theme='dark'] .bg-blue-50\/70,
+html.dark .bg-blue-50\/60,
+html.dark .bg-blue-50\/70 {
+  background-color: rgba(59, 130, 246, 0.28) !important;
+}
+
+html[data-theme='dark'] .bg-sky-50,
+html.dark .bg-sky-50 {
+  background-color: rgba(14, 165, 233, 0.2) !important;
+}
+
+html[data-theme='dark'] .bg-amber-50,
+html.dark .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+html[data-theme='dark'] .bg-violet-50,
+html.dark .bg-violet-50 {
+  background-color: rgba(139, 92, 246, 0.2) !important;
+}
+
+html[data-theme='dark'] .border-blue-100,
+html[data-theme='dark'] .border-blue-200,
+html[data-theme='dark'] .border-emerald-100,
+html[data-theme='dark'] .border-amber-100,
+html.dark .border-blue-100,
+html.dark .border-blue-200,
+html.dark .border-emerald-100,
+html.dark .border-amber-100 {
+  border-color: rgba(148, 163, 184, 0.45) !important;
+}
+
+html[data-theme='dark'] table thead,
+html.dark table thead {
+  background-color: #1e293b !important;
+}
+
+html[data-theme='dark'] table thead th,
+html.dark table thead th {
+  color: #dbe7fb !important;
+}
+
+html[data-theme='dark'] table tbody td,
+html.dark table tbody td {
+  color: #d7e3f6;
+}
+
+html[data-theme='dark'] table tbody td .text-gray-500,
+html[data-theme='dark'] table tbody td .text-slate-500,
+html.dark table tbody td .text-gray-500,
+html.dark table tbody td .text-slate-500 {
+  color: #a9bbd6 !important;
+}
+
+html[data-theme='dark'] table tbody tr,
+html.dark table tbody tr {
+  border-color: #314158 !important;
+}
+
+html[data-theme='dark'] table .sticky.left-0,
+html.dark table .sticky.left-0 {
+  background-color: #0f172a !important;
+}
+
+html[data-theme='dark'] table thead .sticky.left-0,
+html.dark table thead .sticky.left-0 {
+  background-color: #1e293b !important;
+}
+
+html[data-theme='dark'] .bg-gray-100,
+html[data-theme='dark'] .bg-slate-100,
+html.dark .bg-gray-100,
+html.dark .bg-slate-100 {
+  background-color: rgba(100, 116, 139, 0.24) !important;
+}
+
+html[data-theme='dark'] .text-slate-600,
+html.dark .text-slate-600 {
+  color: #c4d1e6 !important;
+}
+
+html[data-theme='dark'] .border-gray-100,
+html[data-theme='dark'] .border-gray-200,
+html[data-theme='dark'] .border-slate-200,
+html[data-theme='dark'] .border-slate-300,
+html[data-theme='dark'] .border-slate-200\/80,
+html[data-theme='dark'] .border-white\/70,
+html[data-theme='dark'] .border-white\/60,
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-slate-200,
+html.dark .border-slate-300,
+html.dark .border-slate-200\/80,
+html.dark .border-white\/70,
+html.dark .border-white\/60 {
+  border-color: #3b4a61 !important;
+}
+
+html[data-theme='dark'] header,
+html.dark header {
+  background-color: rgba(2, 6, 23, 0.86) !important;
+  border-color: #1e293b !important;
+}
+
+html[data-theme='dark'] input,
+html[data-theme='dark'] textarea,
+html[data-theme='dark'] select,
+html.dark input,
+html.dark textarea,
+html.dark select {
+  color: #e2e8f0;
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme='dark'] .nav-link,
+html.dark .nav-link {
+  color: #b7e9cd;
+}
+
+html[data-theme='dark'] .nav-link:hover,
+html.dark .nav-link:hover {
+  background: rgba(0, 183, 73, 0.2);
+  color: #e8fff2;
+}
+
+html[data-theme='dark'] .cta-primary,
+html.dark .cta-primary {
+  background: linear-gradient(135deg, #22c55e, #16a34a 50%, #0284c7) !important;
+  color: #f8fffb !important;
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.28);
+}
+
+html[data-theme='dark'] .cta-primary:hover,
+html.dark .cta-primary:hover {
+  background: linear-gradient(135deg, #34d399, #22c55e 50%, #0ea5e9) !important;
+  box-shadow: 0 12px 28px rgba(14, 165, 233, 0.34);
+}
+
+html[data-theme='dark'] .bg-slate-900,
+html[data-theme='dark'] .bg-gray-900,
+html.dark .bg-slate-900,
+html.dark .bg-gray-900 {
+  background-color: #2563eb !important;
+  color: #f8fbff !important;
+}
+
+html[data-theme='dark'] .hover\:bg-slate-800:hover,
+html[data-theme='dark'] .hover\:bg-gray-800:hover,
+html.dark .hover\:bg-slate-800:hover,
+html.dark .hover\:bg-gray-800:hover {
+  background-color: #1d4ed8 !important;
+}
+
+html[data-theme='dark'] .border-slate-300,
+html[data-theme='dark'] .border-gray-300,
+html.dark .border-slate-300,
+html.dark .border-gray-300 {
+  border-color: #4b5f7c !important;
+}
+
+html[data-theme='dark'] .bg-white.text-slate-700,
+html[data-theme='dark'] .bg-white.text-gray-700,
+html.dark .bg-white.text-slate-700,
+html.dark .bg-white.text-gray-700 {
+  background-color: #1f2937 !important;
+  color: #dbe7f9 !important;
+}
+
+html[data-theme='dark'] .login-screen > .bg-gradient-to-br,
+html.dark .login-screen > .bg-gradient-to-br {
+  background: linear-gradient(135deg, rgba(2, 6, 23, 0.9), rgba(3, 25, 42, 0.7), rgba(7, 89, 133, 0.42)) !important;
 }
 
 a {
