@@ -55,17 +55,31 @@ export async function getCurrentUser() {
   const session = await getSession()
   if (!session) return null
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.userId },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      active: true,
-      createdAt: true,
-    },
-  })
+  let user: {
+    id: string
+    name: string
+    email: string
+    role: 'GESTOR' | 'OPERADOR'
+    active: boolean
+    createdAt: Date
+  } | null = null
+
+  try {
+    user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        active: true,
+        createdAt: true,
+      },
+    })
+  } catch (error) {
+    console.error('Erro ao buscar usuário atual no banco:', error)
+    return null
+  }
 
   if (!user || !user.active) return null
   return user
